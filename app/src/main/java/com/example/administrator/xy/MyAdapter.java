@@ -1,5 +1,6 @@
 package com.example.administrator.xy;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +56,15 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 ((ViewHolder2)holder).title.setText(mData.get(position).get("szTitle").toString());
                 ((ViewHolder2)holder).name.setText(mData.get(position).get("szNickName").toString());
                 ((ViewHolder2)holder).comment.setText(mData.get(position).get("iCommentCnt").toString());
+                ((ViewHolder2)holder).time.setText(mData.get(position).get("dtTime").toString());
+                ((ViewHolder2)holder).read.setText("阅读："+ mData.get(position).get("iReadCnt").toString());
+                ((ViewHolder2)holder).content.setText(mData.get(position).get("szSummary").toString());
+                try {
+                    ((InputStream)mData.get(position).get("header")).reset();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ((ViewHolder2)holder).header.setImageBitmap(BitmapFactory.decodeStream((InputStream)mData.get(position).get("header")));
                 break;
         }
 
@@ -77,12 +93,20 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         TextView title;
         TextView name;
         TextView comment;
+        TextView time;
+        TextView read;
+        TextView content;
+        ImageView header;
 
         public ViewHolder2(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_normal_item_title);
             name = (TextView) itemView.findViewById(R.id.tv_normal_item_name);
             comment = (TextView) itemView.findViewById(R.id.tv_normal_item_comment);
+            time = (TextView) itemView.findViewById(R.id.tv_normal_item_time);
+            read = (TextView) itemView.findViewById(R.id.tv_normal_item_read);
+            content = (TextView) itemView.findViewById(R.id.tv_normal_item_content);
+            header = (ImageView) itemView.findViewById(R.id.iv_normal_item_header);
         }
     }
 }

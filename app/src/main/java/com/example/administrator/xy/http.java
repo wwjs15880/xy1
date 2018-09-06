@@ -1,7 +1,11 @@
 package com.example.administrator.xy;
 
+import android.graphics.drawable.Drawable;
+
 import com.example.administrator.xy.entity.Translation;
 import com.google.gson.Gson;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -9,6 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,6 +34,20 @@ public class http {
 
         GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
         Observable<Translation> observable = request.postCall(body);
+
+        return observable;
+    }
+
+    public static Observable<ResponseBody> requestHeader(String url) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url+"/") // 设置 网络请求 Url
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //添加Rxjava
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        GetRequest_Interface requestHeader = retrofit.create(GetRequest_Interface.class);
+        Observable<ResponseBody> observable = requestHeader.getHeader(url);
 
         return observable;
     }

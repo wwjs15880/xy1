@@ -12,7 +12,7 @@
         android:layout_height="30dp"
         android:orientation="horizontal">
 
-        <com.example.administrator.xy.CircleImageView
+        <ImageView
             android:id="@+id/iv_normal_item_header"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -54,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_normal_item_title"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:textColor="#333333"
         android:textSize="12dp"/>
 
@@ -83,5 +84,28 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_normal_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:textColor="#999999"
+        android:paddingLeft="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bot_normal_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_normal_item_read"/>
+
+    <TextView
+        android:id="@+id/tv_normal_item_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:textColor="#999999"
+        android:paddingLeft="3dp"
+        app:layout_constraintLeft_toRightOf="@id/tv_normal_item_time"
+        app:layout_constraintTop_toBottomOf="@id/bot_normal_item"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

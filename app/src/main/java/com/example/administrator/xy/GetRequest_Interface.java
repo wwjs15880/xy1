@@ -2,6 +2,8 @@ package com.example.administrator.xy;
 
 
 
+import android.graphics.drawable.Drawable;
+
 import com.example.administrator.xy.entity.Translation;
 
 import io.reactivex.Observable;
@@ -13,11 +15,12 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface GetRequest_Interface {
 
-    @GET("145")
-    Call<ResponseBody> getCall(@Query("isContestants") String c,@Query("iOrder") String o,@Query("iClassID") String classid);
+    @GET
+    Observable<ResponseBody> getHeader(@Url String fileUrl);
 
     @Headers({"Content-Type: application/json;charset=UTF-8",
               "x-csrf-token: l21dERmx47NdLfsUqPMB2GED",
