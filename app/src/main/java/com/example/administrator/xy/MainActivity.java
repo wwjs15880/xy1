@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -25,10 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import io.reactivex.Observable;
 import com.example.administrator.xy.entity.Translation;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.reactivestreams.Subscriber;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Fresco.initialize(this);
 
 
         mLayoutManager = new LinearLayoutManager(this);
@@ -147,43 +149,10 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject content = new JSONObject(json);
                 map.put("szSummary",content.get("szSummary").toString());
-
-                http.requestHeader(rowsBean.author.baseInfo.szHeaderUrl).subscribeOn(Schedulers.io())
-                        .subscribe(new Observer<ResponseBody>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                System.out.println("subs");
-                            }
-
-                            @Override
-                            public void onNext(ResponseBody responseBody) {
-                                System.out.println("next");
-                                map.put("header",responseBody.byteStream());
-                                //((ImageView)findViewById(R.id.ib_head_login)).setImageBitmap(BitmapFactory.decodeStream(responseBody.byteStream()));
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                System.out.println("err");
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                System.out.println("complete");
-                            }
-                        });
-                //if(j==0){
-                    //map.put("header",http.requestHeader(rowsBean.author.baseInfo.szHeaderUrl));
-                //}
-
-
-                /*
-                String temp = content.get("imgArr").toString();
-                temp = temp.substring(1,temp.length()-1);
-                String[] pic = temp.split(",");
-                for(int i=0;i<pic.length;i++){
-                    map.put("pic"+i,http.requestHeader(pic[i]).subscribeOn(Schedulers.io()));
-                }*/
+                JSONArray playary = content.optJSONArray("imgArr");
+                for (int i = 0; i < playary.length(); i++) {
+                    map.put("pic"+(i+1),playary.getString(i));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,12 +61,10 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 ((ViewHolder2)holder).time.setText(mData.get(position).get("dtTime").toString());
                 ((ViewHolder2)holder).read.setText("阅读："+ mData.get(position).get("iReadCnt").toString());
                 ((ViewHolder2)holder).content.setText(mData.get(position).get("szSummary").toString());
-                try {
-                    ((InputStream)mData.get(position).get("header")).reset();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                ((ViewHolder2)holder).header.setImageBitmap(BitmapFactory.decodeStream((InputStream)mData.get(position).get("header")));
+                ((ViewHolder2)holder).header.setImageURI(mData.get(position).get("szHeaderUrl").toString());
+                if(mData.get(position).containsKey("pic1"))((ViewHolder2)holder).pic1.setImageURI(mData.get(position).get("pic1").toString());
+                if(mData.get(position).containsKey("pic2"))((ViewHolder2)holder).pic2.setImageURI(mData.get(position).get("pic2").toString());
+                if(mData.get(position).containsKey("pic3"))((ViewHolder2)holder).pic3.setImageURI(mData.get(position).get("pic3").toString());
                 break;
         }
 
@@ -96,7 +96,11 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         TextView time;
         TextView read;
         TextView content;
-        ImageView header;
+        SimpleDraweeView header;
+        SimpleDraweeView pic1;
+        SimpleDraweeView pic2;
+        SimpleDraweeView pic3;
+
 
         public ViewHolder2(View itemView) {
             super(itemView);
@@ -106,7 +110,10 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             time = (TextView) itemView.findViewById(R.id.tv_normal_item_time);
             read = (TextView) itemView.findViewById(R.id.tv_normal_item_read);
             content = (TextView) itemView.findViewById(R.id.tv_normal_item_content);
-            header = (ImageView) itemView.findViewById(R.id.iv_normal_item_header);
+            header = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_header);
+            pic1 = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_pic1);
+            pic2 = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_pic2);
+            pic3 = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_pic3);
         }
     }
 }
