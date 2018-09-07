@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Translation translation) {
                         System.out.println("next");
-                        mAdapter = new MyAdapter(getData(translation));
+                        mAdapter = new MyAdapter(getData(translation),MainActivity.this);
                         mRecyclerView.setAdapter(mAdapter);
                     }
 

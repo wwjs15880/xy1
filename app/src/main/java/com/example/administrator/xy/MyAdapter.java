@@ -1,11 +1,14 @@
 package com.example.administrator.xy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -19,12 +22,16 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+
 class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private List<Map<String, Object>> mData;
+    private Context mContext;
 
-    public MyAdapter(List<Map<String, Object>> data) {
-            this.mData = data;
+    public MyAdapter(List<Map<String, Object>> data, Context context) {
+
+        this.mData = data;
+        mContext = context;
     }
 
     public void updateData(List<Map<String, Object>> data) {
@@ -55,6 +62,7 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 ((ViewHolder1)holder).title.setText(mData.get(position).get("szTitle").toString());
                 break;
             case 1:
+                final int a = position;
                 ((ViewHolder2)holder).title.setText(mData.get(position).get("szTitle").toString());
                 ((ViewHolder2)holder).name.setText(mData.get(position).get("szNickName").toString());
                 ((ViewHolder2)holder).comment.setText(mData.get(position).get("iCommentCnt").toString());
@@ -65,6 +73,16 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 if(mData.get(position).containsKey("pic1"))((ViewHolder2)holder).pic1.setImageURI(mData.get(position).get("pic1").toString());
                 if(mData.get(position).containsKey("pic2"))((ViewHolder2)holder).pic2.setImageURI(mData.get(position).get("pic2").toString());
                 if(mData.get(position).containsKey("pic3"))((ViewHolder2)holder).pic3.setImageURI(mData.get(position).get("pic3").toString());
+                ((ViewHolder2)holder).detail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String url = "http://m.gamer.qq.com/v2/article/detail/"+ mData.get(a).get("iProductID").toString() +"/"+ mData.get(a).get("iArticleID").toString();
+                        Intent intent = new Intent(mContext,DetailActivity.class);
+                        intent.putExtra("url",url);
+                        mContext.startActivity(intent);
+
+                    }
+                });
                 break;
         }
 
@@ -100,6 +118,7 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         SimpleDraweeView pic1;
         SimpleDraweeView pic2;
         SimpleDraweeView pic3;
+        LinearLayout detail;
 
 
         public ViewHolder2(View itemView) {
@@ -114,6 +133,7 @@ class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             pic1 = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_pic1);
             pic2 = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_pic2);
             pic3 = (SimpleDraweeView) itemView.findViewById(R.id.sdv_normal_item_pic3);
+            detail = (LinearLayout) itemView.findViewById(R.id.mid_normal_item);
         }
     }
 }
