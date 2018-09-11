@@ -1,5 +1,6 @@
 package com.example.administrator.xy;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tl_first;
     private ImageView tv_test;
+    private ImageButton test;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -83,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
         });
         tv_test = (ImageView)findViewById(R.id.debug);
 
-
+        test = (ImageButton)findViewById(R.id.ib_head_login);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,WeexActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
