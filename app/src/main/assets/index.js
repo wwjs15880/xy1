@@ -1,4 +1,4 @@
-// { "framework": "Vue"} 
+// { "framework": "Vue"}
 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -111,7 +111,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\weex\\test\\src\\index.vue"
+__vue_options__.__file = "D:\\weex\\test2\\src\\index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__._scopeId = "data-v-1a4d8e3c"
@@ -133,37 +133,67 @@ module.exports = __vue_exports__
 /***/ (function(module, exports) {
 
 module.exports = {
-  "logo": {
-    "width": "424",
-    "height": "200"
-  },
-  "greeting": {
-    "textAlign": "center",
-    "marginTop": "70",
-    "fontSize": "50",
-    "color": "#41B883"
-  },
-  "message": {
-    "marginTop": "30",
-    "marginRight": "30",
-    "marginBottom": "30",
-    "marginLeft": "30",
-    "fontSize": "32",
-    "color": "#727272"
-  },
-  "testInput": {
+  "header": {
     "height": "80",
-    "paddingTop": "10",
-    "paddingRight": "10",
-    "paddingBottom": "10",
-    "paddingLeft": "10",
-    "fontSize": "32",
     "width": "750",
-    "borderBottomWidth": "1"
+    "backgroundColor": "#000000",
+    "flexDirection": "row"
   },
-  "testImage": {
-    "width": "750",
-    "height": "300"
+  "header_symbol": {
+    "height": "60",
+    "width": "300",
+    "marginTop": "10"
+  },
+  "header_percent": {
+    "height": "40",
+    "width": "40",
+    "marginTop": "20",
+    "marginLeft": "320"
+  },
+  "header_register": {
+    "height": "40",
+    "width": "40",
+    "marginTop": "20",
+    "marginLeft": 30
+  },
+  "city": {
+    "height": "200",
+    "width": "710",
+    "marginTop": "20",
+    "marginLeft": "20",
+    "marginRight": "20",
+    "backgroundColor": "#bbbbbb"
+  },
+  "citytext": {
+    "fontSize": "36",
+    "marginTop": "5",
+    "marginLeft": "5",
+    "marginRight": "5",
+    "width": "340"
+  },
+  "citytext2": {
+    "fontSize": "24",
+    "marginTop": "5",
+    "marginLeft": "5",
+    "marginRight": "5",
+    "minWidth": "100"
+  },
+  "panel": {
+    "width": "700",
+    "height": "250",
+    "marginLeft": "25",
+    "marginTop": "35",
+    "marginBottom": "35",
+    "flexDirection": "column",
+    "borderWidth": "2",
+    "borderStyle": "solid",
+    "borderColor": "rgb(162,217,192)",
+    "backgroundColor": "rgba(162,217,192,0.2)"
+  },
+  "text": {
+    "fontSize": "50",
+    "textAlign": "center",
+    "color": "#000000"
   }
 }
 
@@ -185,14 +215,78 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+var modal = weex.requireModule('modal');
+var stream = weex.requireModule('stream');
 exports.default = {
   name: 'App',
   components: {},
   data: function data() {
     return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+      info: {},
+      fc: []
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    var url = 'https://www.sojson.com/open/api/weather/json.shtml?city=北京';
+    this.getNews(url, function (res) {
+      //modal.toast({message:'请求成功'+res.date.toString(),duration:1});
+      _this.info = res.data;
+      //this.fc=res.data.forecast;
+      //console.log("lalalala"+this.fc);
+    });
+  },
+
+  methods: {
+    getNews: function getNews(url, callback) {
+      return stream.fetch({
+        method: 'GET',
+        type: 'json',
+        url: url
+      }, callback);
+    }
   }
 };
 
@@ -202,23 +296,102 @@ exports.default = {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: ["wrapper"]
-  }, [_c('input', {
-    staticClass: ["testInput"],
-    attrs: {
-      "autptype": _vm.text,
-      "placeholder": "瞎写点什么"
+    staticStyle: {
+      backgroundColor: "#dddddd"
     }
-  }), _c('image', {
-    staticClass: ["testImage"],
+  }, [_vm._m(0), _c('div', {
+    staticClass: ["city"]
+  }, [_c('div', {
+    staticStyle: {
+      flexDirection: "row"
+    }
+  }, [_c('text', {
+    staticClass: ["citytext"]
+  }, [_vm._v("城市：" + _vm._s(_vm.info.city))]), _c('text', {
+    staticClass: ["citytext"]
+  }, [_vm._v("日期：" + _vm._s(_vm.info.date))])]), _c('div', {
+    staticStyle: {
+      flexDirection: "row"
+    }
+  }, [_c('text', {
+    staticClass: ["citytext"]
+  }, [_vm._v("温度：" + _vm._s(_vm.info.data.wendu))]), _c('text', {
+    staticClass: ["citytext"]
+  }, [_vm._v("湿度：" + _vm._s(_vm.info.data.shidu))])]), _c('div', {
+    staticStyle: {
+      flexDirection: "row"
+    }
+  }, [_c('text', {
+    staticClass: ["citytext"]
+  }, [_vm._v("pm2.5：" + _vm._s(_vm.info.data.pm25))]), _c('text', {
+    staticClass: ["citytext"]
+  }, [_vm._v("pm10：" + _vm._s(_vm.info.data.pm10))])]), _c('div', {
+    staticStyle: {
+      flexDirection: "row"
+    }
+  }, [_c('text', {
+    staticClass: ["citytext2"]
+  }, [_vm._v("空气质量：" + _vm._s(_vm.info.data.quality))]), _c('text', {
+    staticClass: ["citytext2"]
+  }, [_vm._v("感冒指数：" + _vm._s(_vm.info.data.ganmao))])])]), _c('list', _vm._l((this.info.data.forecast), function(news) {
+    return _c('cell', {
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('div', {
+      staticClass: ["panel"]
+    }, [_c('div', {
+      staticStyle: {
+        flexDirection: "row"
+      }
+    }, [_c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v(_vm._s(news.date))]), _c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v(_vm._s(news.type))])]), _c('div', {
+      staticStyle: {
+        flexDirection: "row"
+      }
+    }, [_c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v(_vm._s(news.high))]), _c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v(_vm._s(news.low))])]), _c('div', {
+      staticStyle: {
+        flexDirection: "row"
+      }
+    }, [_c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v("风向：" + _vm._s(news.fx))]), _c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v("风力：" + _vm._s(news.fl))])]), _c('text', {
+      staticClass: ["citytext"]
+    }, [_vm._v(_vm._s(news.notice))])])])
+  }))])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["header"]
+  }, [_c('image', {
+    staticClass: ["header_symbol"],
     attrs: {
       "resize": "contain",
-      "src": "http://shp.qpic.cn/zc_large/0/800_1535366729000/800"
+      "src": "http://f.gamer.qq.com/v2/h5/static/build/base-xlab-logo2-5699a6319b.png"
     }
-  }), _c('text', {
-    staticClass: ["greeting"]
-  }, [_vm._v("The environment is ready!")])])
-},staticRenderFns: []}
+  }), _c('image', {
+    staticClass: ["header_percent"],
+    attrs: {
+      "resize": "contain",
+      "src": "http://f.gamer.qq.com/v2/h5/static/build/help-icon-percent-f55e800125.png"
+    }
+  }), _c('image', {
+    staticClass: ["header_register"],
+    attrs: {
+      "resize": "contain",
+      "src": "http://f.gamer.qq.com/v2/h5/static/build/help-icon-register-17aafe6ed7.png"
+    }
+  })])
+}]}
 module.exports.render._withStripped = true
 
 /***/ })
