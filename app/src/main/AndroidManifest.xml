@@ -24,7 +24,8 @@
         <activity android:name=".DetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".WeexActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

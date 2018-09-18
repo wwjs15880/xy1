@@ -4,6 +4,8 @@ package com.example.administrator.xy;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.widget.Toast;
 
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.WXSDKInstance;
@@ -21,6 +23,7 @@ public class WeexActivity extends AppCompatActivity implements IWXRenderListener
 
         mWXSDKInstance = new WXSDKInstance(this);
         mWXSDKInstance.registerRenderListener(this);
+
         /**
          * WXSample 可以替换成自定义的字符串，针对埋点有效。
          * template 是.we transform 后的 js文件。

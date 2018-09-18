@@ -3,6 +3,7 @@ import android.app.Application;
 
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
+import com.taobao.weex.common.WXException;
 
 /**
  * 注意要在Manifest中设置android:name=".WXApplication"
@@ -20,5 +21,11 @@ public class WXApplication extends Application {
         super.onCreate();
         InitConfig config=new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
         WXSDKEngine.initialize(this,config);
+        try {
+            WXSDKEngine.registerComponent("mybutton", MyButton.class);
+            WXSDKEngine.registerComponent("cardview", WXCardView.class);
+        } catch (WXException e) {
+            e.printStackTrace();
+        }
     }
 }

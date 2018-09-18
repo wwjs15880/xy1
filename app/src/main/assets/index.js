@@ -148,7 +148,7 @@ module.exports = {
     "height": "40",
     "width": "40",
     "marginTop": "20",
-    "marginLeft": "320"
+    "marginLeft": "260"
   },
   "header_register": {
     "height": "40",
@@ -194,6 +194,13 @@ module.exports = {
     "fontSize": "50",
     "textAlign": "center",
     "color": "#000000"
+  },
+  "mycomponent": {
+    "fontSize": "20",
+    "height": "40",
+    "width": "40",
+    "marginTop": "20",
+    "marginLeft": "20"
   }
 }
 
@@ -204,9 +211,11 @@ module.exports = {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var _module$exports;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -258,37 +267,39 @@ Object.defineProperty(exports, "__esModule", {
 
 var modal = weex.requireModule('modal');
 var stream = weex.requireModule('stream');
-exports.default = {
+module.exports = (_module$exports = {
   name: 'App',
   components: {},
-  data: function data() {
-    return {
-      info: {},
-      fc: []
-    };
+  data: {
+    info: {},
+    fc: [],
+    name: '自定义组件textView'
   },
   created: function created() {
-    var _this = this;
-
-    var url = 'https://www.sojson.com/open/api/weather/json.shtml?city=北京';
-    this.getNews(url, function (res) {
-      //modal.toast({message:'请求成功'+res.date.toString(),duration:1});
-      _this.info = res.data;
-      //this.fc=res.data.forecast;
-      //console.log("lalalala"+this.fc);
-    });
-  },
-
-  methods: {
-    getNews: function getNews(url, callback) {
-      return stream.fetch({
-        method: 'GET',
-        type: 'json',
-        url: url
-      }, callback);
-    }
+    this.$refs.mycomponent.focus();
   }
-};
+}, _defineProperty(_module$exports, 'created', function created() {
+  var _this = this;
+
+  var url = 'https://www.sojson.com/open/api/weather/json.shtml?city=北京';
+  this.getNews(url, function (res) {
+    //modal.toast({message:'请求成功'+res.date.toString(),duration:1});
+    _this.info = res.data;
+    //this.fc=res.data.forecast;
+    //console.log("lalalala"+this.fc);
+  });
+}), _defineProperty(_module$exports, 'methods', {
+  getNews: function getNews(url, callback) {
+    return stream.fetch({
+      method: 'GET',
+      type: 'json',
+      url: url
+    }, callback);
+  },
+  back: function back() {
+    App.callAndroid();
+  }
+}), _module$exports);
 
 /***/ }),
 /* 7 */
@@ -299,7 +310,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       backgroundColor: "#dddddd"
     }
-  }, [_vm._m(0), _c('div', {
+  }, [_c('div', {
+    staticClass: ["header"]
+  }, [_c('cardview', {
+    ref: "mycomponent",
+    staticClass: ["mycomponent"],
+    attrs: {
+      "showmsg": _vm.name
+    }
+  }), _c('image', {
+    staticClass: ["header_symbol"],
+    attrs: {
+      "resize": "contain",
+      "src": "http://f.gamer.qq.com/v2/h5/static/build/base-xlab-logo2-5699a6319b.png"
+    }
+  }), _c('image', {
+    staticClass: ["header_percent"],
+    attrs: {
+      "resize": "contain",
+      "src": "http://f.gamer.qq.com/v2/h5/static/build/help-icon-percent-f55e800125.png"
+    }
+  }), _c('image', {
+    staticClass: ["header_register"],
+    attrs: {
+      "resize": "contain",
+      "src": "http://f.gamer.qq.com/v2/h5/static/build/help-icon-register-17aafe6ed7.png"
+    }
+  })], 1), _c('div', {
     staticClass: ["city"]
   }, [_c('div', {
     staticStyle: {
@@ -369,29 +406,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: ["citytext"]
     }, [_vm._v(_vm._s(news.notice))])])])
   }))])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: ["header"]
-  }, [_c('image', {
-    staticClass: ["header_symbol"],
-    attrs: {
-      "resize": "contain",
-      "src": "http://f.gamer.qq.com/v2/h5/static/build/base-xlab-logo2-5699a6319b.png"
-    }
-  }), _c('image', {
-    staticClass: ["header_percent"],
-    attrs: {
-      "resize": "contain",
-      "src": "http://f.gamer.qq.com/v2/h5/static/build/help-icon-percent-f55e800125.png"
-    }
-  }), _c('image', {
-    staticClass: ["header_register"],
-    attrs: {
-      "resize": "contain",
-      "src": "http://f.gamer.qq.com/v2/h5/static/build/help-icon-register-17aafe6ed7.png"
-    }
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 
 /***/ })
